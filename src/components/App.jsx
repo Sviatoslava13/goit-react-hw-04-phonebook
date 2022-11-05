@@ -34,13 +34,12 @@ export function App() {
   };
 
   const filterContact = () => {
+    if (contacts.length === 0) return;
     const filterName = filter.trim().toLowerCase();
     return contacts.filter(({ name }) =>
       name.toLowerCase().includes(filterName)
     );
   };
-
-  const filterContacts = filterContact();
 
   return (
     <div className={s.container}>
@@ -48,8 +47,8 @@ export function App() {
       <ContactForm addContact={addContact} />
       <h2 className={s.title}>Contacts</h2>
       <Filter handleChange={handleChange} filter={filter} />
-      {filterContacts.length > 0 && (
-        <ContactList contacts={filterContacts} removeContact={removeContact} />
+      {filterContact() && (
+        <ContactList contacts={filterContact()} removeContact={removeContact} />
       )}
     </div>
   );
